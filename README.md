@@ -21,3 +21,7 @@ npm db:push
 ```bash
 nano mcpconfig.json
 ```
+
+```bash
+npm start
+```
