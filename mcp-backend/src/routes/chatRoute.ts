@@ -1,10 +1,11 @@
-import express from "express";
-import { createChat, getAllChats, getMessagesByChatId } from "../controllers/chatController";
+import express, { Router } from "express";
+import { createChat, createMessage, getAllChats, getMessagesByChatId } from "../controllers/chatController.js";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.post("/chats", createChat);
 router.get("/chats", getAllChats);
+router.post("/chats/messages", createMessage);
 router.get("/chats/:chatId/messages", getMessagesByChatId);
 
 export { router as chatRoute };
