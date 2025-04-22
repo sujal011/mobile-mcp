@@ -15,9 +15,14 @@
     "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
+    "@langchain/anthropic": "^0.3.18",
+    "@langchain/core": "^0.3.46",
+    "@langchain/google-genai": "^0.2.4",
     "@libsql/client": "^0.15.4",
+    "@modelcontextprotocol/sdk": "^1.10.2",
     "drizzle-orm": "^0.42.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
