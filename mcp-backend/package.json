@@ -18,6 +18,8 @@
     "@langchain/anthropic": "^0.3.18",
     "@langchain/core": "^0.3.46",
     "@langchain/google-genai": "^0.2.4",
+    "@langchain/groq": "^0.2.2",
+    "@langchain/openai": "^0.5.6",
     "@libsql/client": "^0.15.4",
     "@modelcontextprotocol/sdk": "^1.10.2",
     "drizzle-orm": "^0.42.0",
