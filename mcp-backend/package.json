@@ -1,0 +1,29 @@
+{
+  "name": "mcp-backend",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "sujal011",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "watch": "tsc --watch",
+    "dev": "node --watch dist/index.js",
+    "build": "tsc",
+    "db:generate": "npx drizzle-kit generate",
+    "db:push": "npx drizzle-kit migrate",
+    "db:studio": "npx drizzle-kit studio",
+    "lint": "eslint . --ext .ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.4",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.42.0"
+  }
+}
