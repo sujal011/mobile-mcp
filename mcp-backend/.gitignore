@@ -5,4 +5,4 @@ dist/
 .env
 
 drizzle/
-.mcp_mobile.db
+mcp_mobile.db
