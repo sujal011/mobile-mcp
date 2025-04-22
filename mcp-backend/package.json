@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "watch": "tsc --watch",
+    "watch": "tsc -w",
     "dev": "node --watch dist/index.js",
     "build": "tsc",
     "db:generate": "npx drizzle-kit generate",
@@ -18,12 +18,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "eslint": "^9.25.1",
+    "@types/express": "^5.0.1",
+    "drizzle-kit": "^0.31.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
     "@libsql/client": "^0.15.4",
     "dotenv": "^16.5.0",
-    "drizzle-orm": "^0.42.0"
+    "drizzle-orm": "^0.42.0",
+    "express": "^5.1.0"
   }
 }

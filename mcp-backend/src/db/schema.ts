@@ -9,7 +9,7 @@ export const chatTable = sqliteTable("chat_table", {
 
 export const messageTable = sqliteTable("message_table", {
     id: int().primaryKey({ autoIncrement: true }),
-    chatId: int("cha_Id").references(() => chatTable.id),
+    chatId: int("chat_id").references(() => chatTable.id,{onDelete:'cascade'}).notNull(),
     content: text().notNull(),
     role: text().notNull(),
 })
