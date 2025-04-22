@@ -1,13 +1,8 @@
-import { Request, Response } from "express";
-import * as chatService from "../services/chatService";
+import type { Request, Response } from "express";
+import * as chatService from "../services/chatService.js";
 
-type ApiResponse<T> = {
-    success: boolean;
-    data?: T;
-    error?: string;
-};
 
-export async function createChat(req: Request, res: Response<ApiResponse<any>>) {
+export async function createChat(req: Request, res: Response) : Promise<any> {
     try {
         const { title } = req.body;
         if (!title) {
@@ -21,7 +16,7 @@ export async function createChat(req: Request, res: Response<ApiResponse<any>>) 
     }
 }
 
-export async function getAllChats(req: Request, res: Response<ApiResponse<any[]>>) {
+export async function getAllChats(req: Request, res: Response): Promise<any> {
     try {
         const chats = await chatService.getAllChats();
         res.status(200).json({ success: true, data: chats });
@@ -31,9 +26,9 @@ export async function getAllChats(req: Request, res: Response<ApiResponse<any[]>
     }
 }
 
-export async function getMessagesByChatId(req: Request, res: Response<ApiResponse<any[]>>) {
+export async function getMessagesByChatId(req: Request, res: Response): Promise<any> {
     try {
-        const chatId = parseInt(req.params.chatId, 10);
+        const chatId = parseInt(req.params.chatId!, 10);
         if (isNaN(chatId)) {
             return res.status(400).json({ success: false, error: "Invalid chat ID" });
         }
