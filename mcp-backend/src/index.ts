@@ -3,9 +3,12 @@ import { chatRoute } from "./routes/chatRoute.js";
 import { ChatService } from "./services/chat-service.js";
 import fs from "fs";
 import * as path from "path";
+import cors from "cors";
+
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
 export const chatService = new ChatService(
     [
@@ -59,7 +62,7 @@ app.get("/api/tools", async (req, res) => {
     }
   });
 
-app.get("/mcpconfig", (req, res) => {
+app.get("/api/mcpconfig", (req, res) => {
   try {
     const configPath = path.join(process.cwd(), "mcpconfig.json");
     if (fs.existsSync(configPath)) {
@@ -73,7 +76,7 @@ app.get("/mcpconfig", (req, res) => {
   }
 })
 
-app.post("/mcpconfig", (req, res) => {
+app.post("/api/mcpconfig", (req, res) => {
   try {
     const configPath = path.join(process.cwd(), "mcpconfig.json");
     const configData = req.body.configFile;
