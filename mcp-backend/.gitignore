@@ -8,3 +8,5 @@ drizzle/
 mcp_mobile.db
 
 logs/
+
+mcpconfig.json
