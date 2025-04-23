@@ -1,17 +1,16 @@
 import { sql } from "drizzle-orm";
-import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, pgTable, text, varchar } from "drizzle-orm/pg-core";
 
-
-export const chatTable = sqliteTable("chat_table", {
-    id: int().primaryKey({ autoIncrement: true }),
-    title: text().notNull(),
-    createdAt: text().default(sql`CURRENT_TIMESTAMP`),
+export const chatTable = pgTable("chat_table", {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    title: varchar({length: 255}).notNull(),
+    createdAt: varchar({length: 255}).default(sql`CURRENT_TIMESTAMP`),
 });
 
-export const messageTable = sqliteTable("message_table", {
-    id: int().primaryKey({ autoIncrement: true }),
-    chatId: int("chat_id").references(() => chatTable.id,{onDelete:'cascade'}).notNull(),
+export const messageTable = pgTable("message_table", {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    chatId: integer("chat_id").references(() => chatTable.id,{onDelete:'cascade'}).notNull(),
     content: text().notNull(),
-    role: text().notNull().$type<"human" | "ai" | "tool" | "system">(),
-    createdAt: text().default(sql`CURRENT_TIMESTAMP`),
+    role: varchar({length: 255}).notNull().$type<"human" | "ai" | "tool" | "system">(),
+    createdAt: varchar({length: 255}).default(sql`CURRENT_TIMESTAMP`),
 })

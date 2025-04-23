@@ -4,7 +4,7 @@ import { chatTable, messageTable } from "../db/schema.js";
 
 export const createChat = async(title: string) => {
     
-    const rowsAffected =  (await db.insert(chatTable).values({ title:title })).rowsAffected
+    const rowsAffected =  (await db.insert(chatTable).values({ title:title })).rowCount
     if (rowsAffected === 0) {
         throw new Error("Failed to create chat")
     }
@@ -23,7 +23,7 @@ export const getAllChats = async() => {
 }
 
 export const createMessage = async(chatId: number, content: string, role: "human" | "ai" | "tool" | "system") => {
-    const rowsAffected = (await db.insert(messageTable).values({ chatId: chatId, content: content, role: role })).rowsAffected
+    const rowsAffected = (await db.insert(messageTable).values({ chatId: chatId, content: content, role: role })).rowCount
     if (rowsAffected === 0) {
         throw new Error("Failed to create message")
     }
