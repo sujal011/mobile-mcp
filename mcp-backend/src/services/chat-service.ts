@@ -145,25 +145,53 @@ export class ChatService {
     ]);
     
     // Handle any tool calls
-    if (result.tool_calls) {
+    if (result.tool_calls && result.tool_calls.length > 0) {
+      console.log(`Model requested ${result.tool_calls.length} tool calls`);
+      console.log(result.content);
+      
+      await createMessage(chatId, JSON.stringify(result.content), "tool");
+
+      const toolResults = [];
       const toolCallsMessages = [];
       
       for (const toolCall of result.tool_calls) {
         try {
           const tool = this.tools.find(t => t.name === toolCall.name);
+
           if (!tool) {
-            throw new Error(`Tool not found: ${toolCall.name}`);
+            const errorMsg = `Tool not found: ${toolCall.name}`;
+            console.error(errorMsg);
+            toolResults.push({ name: toolCall.name, error: errorMsg });
+            continue;
           }
-          
-          const toolResult = await tool.invoke(toolCall);
+          console.log(`Executing tool: ${toolCall.name} with args:`, toolCall.args);
+
+          const toolResult = await tool.invoke(toolCall.args);
+
+          await createMessage(
+            chatId, 
+            `Tool execution: ${toolCall.name}\nInput: ${JSON.stringify(toolCall.args)}\nOutput: ${toolResult}`, 
+            "tool"
+          );
+
           toolCallsMessages.push(toolResult);
         } catch (error) {
-          console.error(`Error executing tool call:`, error);
+          const errorMsg = `Error executing tool ${toolCall.name}: ${error instanceof Error ? error.message : String(error)}`;
+          console.error(errorMsg);
+          
+          // Save tool error in database
+          await createMessage(
+            chatId, 
+            `Tool execution error: ${toolCall.name}\nInput: ${JSON.stringify(toolCall.args)}\nError: ${errorMsg}`, 
+            "tool"
+          );
+          toolCallsMessages.push(errorMsg);
         }
       }
       
       // If there were tool calls, make another call to process the results
       if (toolCallsMessages.length > 0) {
+        console.log("Sending tool results back to the model");
         const finalResult = await modelWithTools.invoke([
           ...messages,
           new HumanMessage(message),
@@ -172,13 +200,16 @@ export class ChatService {
         ]);
         
         // Save AI response to database
-        await createMessage(chatId, finalResult.content as string, "ai");
+        await createMessage(chatId, JSON.stringify(finalResult.content), "ai");
         return JSON.stringify(finalResult.content);
       }
+      return JSON.stringify(result.content);
+    }else{
+      // Save AI response to database
+      await createMessage(chatId, result.content as string, "ai");
+      return JSON.stringify(result.content);
     }
     
-    // Save AI response to database
-    await createMessage(chatId, result.content as string, "ai");
-    return JSON.stringify(result.content);
   }
+  
 }

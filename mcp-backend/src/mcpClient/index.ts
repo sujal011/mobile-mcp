@@ -5,6 +5,7 @@ import {
   CallToolResultSchema,
   ListToolsResultSchema,
   ListResourcesResultSchema,
+  McpError,
 } from "@modelcontextprotocol/sdk/types.js";
 import * as fs from "fs/promises";
 import * as path from "path";
@@ -254,17 +255,36 @@ export class McpClient {
       if (!connection) {
         throw new Error(`No connection found for server: ${serverName}`);
       }
-
-      const response = await connection.client.request(
-        { method: "resources/list" },
-        ListResourcesResultSchema,
-        { timeout: DEFAULT_REQUEST_TIMEOUT_MS }
-      );
-
-      return (response?.resources || []).map((resource) => ({
-        ...resource,
-        mimeType: resource.mimeType || "application/octet-stream", // Default mimeType
-      }));
+  
+      // Move response declaration outside the inner try-catch
+      let response;
+      
+      try {
+        response = await connection.client.request(
+          { method: "resources/list" },
+          ListResourcesResultSchema,
+          { timeout: DEFAULT_REQUEST_TIMEOUT_MS }
+        );
+        console.log("Successfully fetched resources:", response);
+        
+        // Process the response here and return
+        return (response?.resources || []).map((resource) => ({
+          ...resource,
+          mimeType: resource.mimeType || "application/octet-stream", // Default mimeType
+        }));
+        
+      } catch (caughtError) {
+        const error = caughtError as McpError
+        // Check specifically for the "Method not found" error
+        if (error?.code === -32601) {
+          console.log(`Server '${serverName}' does not support the resources/list method`);
+          return []; // Return empty array if resources/list is not supported
+        }
+        
+        // For other errors, log and rethrow
+        console.error("Error fetching resources:", error);
+        throw error;
+      }
     } catch (error) {
       console.error(`Failed to fetch resources for ${serverName}:`, error);
       return [];

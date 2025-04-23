@@ -22,13 +22,25 @@ export const getAllChats = async() => {
     return result
 }
 
-export const createMessage = async(chatId: number, content: string, role: string) => {
+export const createMessage = async(chatId: number, content: string, role: "human" | "ai" | "tool" | "system") => {
     const rowsAffected = (await db.insert(messageTable).values({ chatId: chatId, content: content, role: role })).rowsAffected
     if (rowsAffected === 0) {
         throw new Error("Failed to create message")
     }
     return rowsAffected;
 }
+
+export const getChatById = async(chatId: number) => {
+    const result = await db.select().from(chatTable).where(eq(chatTable.id,chatId))
+    if(!result) {
+        throw new Error("Failed to fetch chat")
+    }
+    if (result.length === 0) {
+        throw new Error("No chat found with this ID")
+    }
+    return result[0]
+}
+
 
 export const getMessagesByChatId = async(chatId: number) => {
     const result = await db.select().from(messageTable).where(eq(messageTable.chatId,chatId))

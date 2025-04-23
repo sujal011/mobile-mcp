@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-const chatService = new ChatService(
+export const chatService = new ChatService(
     [
         {
             provider: "openai",
