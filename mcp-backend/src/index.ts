@@ -1,6 +1,7 @@
 import express from "express";
 import { chatRoute } from "./routes/chatRoute.js";
 import { ChatService } from "./services/chat-service.js";
+import fs from "fs";
 import * as path from "path";
 const app = express();
 
@@ -57,6 +58,32 @@ app.get("/api/tools", async (req, res) => {
       res.status(500).json({ error: String(error) });
     }
   });
+
+app.get("/mcpconfig", (req, res) => {
+  try {
+    const configPath = path.join(process.cwd(), "mcpconfig.json");
+    if (fs.existsSync(configPath)) {
+      const configFile = fs.readFileSync(configPath, "utf-8");
+      res.json({configFile: JSON.parse(configFile)});
+    } else {
+      res.status(404).json({ error: "Configuration file not found" });
+    }
+  } catch (error) {
+    
+  }
+})
+
+app.post("/mcpconfig", (req, res) => {
+  try {
+    const configPath = path.join(process.cwd(), "mcpconfig.json");
+    const configData = req.body.configFile;
+    fs.writeFileSync(configPath, JSON.stringify(configData, null, 2), "utf-8");
+    res.json({ message: "Configuration file updated successfully" });
+  } catch (error) {
+    console.error("Error writing configuration file:", error);
+    res.status(500).json({ error: "Failed to update configuration file" });
+  }
+})
 
 app.use("/api", chatRoute);
 
