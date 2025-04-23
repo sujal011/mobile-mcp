@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "weather-server": {
+      "command": "node",
+      "args": ["C:/Users/Sujal/Desktop/mcp-servers/weather-mcp-server/build/index.js"],
+      "env": {
+        "OPENWEATHER_API_KEY": "f68eec822447b6e46e48c83563a7e8e9"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
