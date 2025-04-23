@@ -8,7 +8,7 @@ import { createMessage, createChat, getMessagesByChatId } from "./chatService.js
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 // Supported model providers
-type ModelProvider = "openai" | "anthropic" | "groq";
+type ModelProvider = "openai" | "anthropic" | "groq" | "gemini";
 
 // Model configuration
 interface ModelConfig {
