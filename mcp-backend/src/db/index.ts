@@ -1,5 +1,3 @@
-import { createClient } from '@libsql/client';
-import { drizzle } from 'drizzle-orm/libsql';
+import { drizzle } from 'drizzle-orm/node-postgres';
 
-const client = createClient({ url: process.env.DB_FILE_NAME! });
-export const db = drizzle({ client });
+export const db = drizzle(process.env.DATABASE_URL!);
