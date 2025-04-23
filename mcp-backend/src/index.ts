@@ -10,6 +10,15 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
+// Serve static files from the frontend's `dist` directory
+const frontendPath = path.join(process.cwd(), "../mcp-frontend2/dist");
+app.use(express.static(frontendPath));
+
+// Fallback route to serve `index.html` for SPA
+app.get("/", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
 export const chatService = new ChatService(
     [
         {
