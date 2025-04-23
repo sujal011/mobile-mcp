@@ -10,3 +10,5 @@ mcp_mobile.db
 logs/
 
 mcpconfig.json
+
+mcp-frontend/node_modules
