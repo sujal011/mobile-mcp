@@ -1,3 +1,5 @@
+## Mobile-Mcp a backend and frontend ui to use mcp tools even in a mobile devices.
+
 ### How Tool Calling Works in This Implementation
 When a user sends a message through the API, the following process happens:
 
@@ -29,6 +31,7 @@ Things to implement next :
 - streaming the messages with sse
 - creating all in one script for termux to directly executes all installation steps
 - improving overall ui
+- Yeah, improve this documentation
 
 # Installation Steps : 
 install termux from here : [Termux](https://github.com/termux/termux-app/releases/download/v0.119.0-beta.2/termux-app_v0.119.0-beta.2+apt-android-7-github-debug_universal.apk)
