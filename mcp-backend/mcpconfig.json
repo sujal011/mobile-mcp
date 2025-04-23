@@ -1,15 +1,14 @@
 {
   "mcpServers": {
-    "weather-server": {
-      "command": "node",
+    "tavily-mcp": {
+      "command": "npx",
       "args": [
-        "C:/Users/Sujal/Desktop/mcp-servers/weather-mcp-server/build/index.js"
+        "-y",
+        "tavily-mcp@0.1.2"
       ],
       "env": {
-        "OPENWEATHER_API_KEY": "91a808b8441ac7a040788393d1b13bf7"
-      },
-      "disabled": false,
-      "autoApprove": []
+        "TAVILY_API_KEY": "api-key"
+      }
     }
   }
 }
