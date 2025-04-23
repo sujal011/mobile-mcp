@@ -2,9 +2,14 @@ import express from "express";
 import { chatRoute } from "./routes/chatRoute.js";
 import { ChatService } from "./services/chat-service.js";
 import * as path from "path";
+import { initDb } from "./db/index.js";
 const app = express();
 
 app.use(express.json());
+initDb().then(()=>{
+  console.log("Database initialized and tables ensured.");
+  
+})
 
 export const chatService = new ChatService(
     [

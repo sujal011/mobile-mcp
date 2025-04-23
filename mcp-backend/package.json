@@ -24,6 +24,8 @@
     "@modelcontextprotocol/sdk": "^1.10.2",
     "drizzle-orm": "^0.42.0",
     "express": "^5.1.0",
+    "sqlite": "^5.1.1",
+    "sqlite3-offline-next": "^5.0.3",
     "zod": "^3.24.3"
   },
   "devDependencies": {

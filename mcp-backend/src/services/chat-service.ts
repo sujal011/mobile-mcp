@@ -107,7 +107,7 @@ export class ChatService {
     return this.tools.map(tool => tool.name);
   }
 
-  async createNewChat(title: string): Promise<number> {
+  async createNewChat(title: string): Promise<number | undefined> {
     return await createChat(title);
   }
 

@@ -6,3 +6,7 @@ dist/
 
 drizzle/
 mcp_mobile.db
+
+logs/
+
+database.db
