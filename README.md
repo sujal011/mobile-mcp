@@ -1,3 +1,36 @@
+### How Tool Calling Works in This Implementation
+When a user sends a message through the API, the following process happens:
+
+Initial LLM Processing:
+
+- The user message is stored in the database
+- The message along with chat history is sent to the selected model
+- The model processes the message and may decide to use tools
+
+
+Tool Execution:
+
+If the model includes tool calls in its response, the application:
+
+- Identifies each requested tool
+- Executes each tool with the provided arguments
+- Records the tool execution and results in the database
+- Creates tool call messages with the results
+
+
+Final Response Generation:
+
+- After tool execution, the tool results are fed back to the model
+- The model generates a final response that incorporates the tool results
+- This final response is stored in the database and returned to the user
+
+Things to implement next : 
+
+- streaming the messages with sse
+- creating all in one script for termux to directly executes all installation steps
+- improving overall ui
+
+# Installation Steps : 
 install termux from here : [Termux](https://github.com/termux/termux-app/releases/download/v0.119.0-beta.2/termux-app_v0.119.0-beta.2+apt-android-7-github-debug_universal.apk)
 
 In termux 
