@@ -6,7 +6,15 @@ termux-setup-storage
 ```
 
 ```bash
+pkg update
+```
+
+```bash
 pkg install nodejs
+```
+
+```bash
+pkg install git
 ```
 
 ```
