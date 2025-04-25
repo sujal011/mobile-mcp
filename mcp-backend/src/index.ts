@@ -15,22 +15,22 @@ export const chatService = new ChatService(
         {
             provider: "openai",
             modelName: "gpt-4o",
-            apiKey: process.env.OPENAI_API_KEY || "",
+            apiKey: process.env.OPENAI_API_KEY || "empty",
         },
         {
             provider: "anthropic",
             modelName: "claude-3-5-sonnet",
-            apiKey: process.env.ANTHROPIC_API_KEY || "",
+            apiKey: process.env.ANTHROPIC_API_KEY || "empty",
         },
         {
             provider: "groq",
             modelName: "llama3-8b-8192",
-            apiKey: process.env.GROQ_API_KEY || "",
+            apiKey: process.env.GROQ_API_KEY || "empty",
         },
         {
             provider:"gemini",
             modelName: "gemini-2.0-flash",
-            apiKey: process.env.GEMINI_API_KEY || "",
+            apiKey: process.env.GEMINI_API_KEY || "empty",
         }
     ],
     path.join(process.cwd(), "mcpconfig.json")
