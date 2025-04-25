@@ -28,6 +28,8 @@ Final Response Generation:
 
 Things to implement next : 
 
+- just deploy this backend first and then it will work properly
+- or create a expo mobile app with server side option in expo and deploy it to eas
 - streaming the messages with sse
 - creating all in one script for termux to directly executes all installation steps
 - improving overall ui
