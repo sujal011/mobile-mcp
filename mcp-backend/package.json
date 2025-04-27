@@ -7,7 +7,7 @@
   "type": "module",
   "main": "dist/src/index.js",
   "scripts": {
-    "start": "tsc && node dist/src/index.js",
+    "start": "tsc && node --env-file .env dist/src/index.js",
     "dev": "tsx watch --env-file .env src/index.ts",
     "build": "tsc",
     "db:generate": "npx drizzle-kit generate",
